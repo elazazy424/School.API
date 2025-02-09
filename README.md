@@ -50,7 +50,6 @@ The project is structured into **five layers**:
 
 1️⃣ Clone the repository:  
    git clone https://github.com/yourusername/SchoolProjectAPI.git
-   
 2️⃣ Navigate to the project folder:
 cd SchoolProjectAPI
 3️⃣ Restore dependencies:
@@ -59,7 +58,6 @@ dotnet restore
 dotnet ef database update
 5️⃣ Run the API:
 dotnet run --project School.API
-
 6️⃣ Open Swagger UI at:
 http://localhost:5000/swagger
 🤝 Contributing
