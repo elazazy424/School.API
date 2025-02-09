@@ -64,7 +64,7 @@ http://localhost:5000/swagger
 Feel free to fork this repository and submit pull requests.
 
 📌 Author: Ahmed Elazazy
-📌 GitHub: Ahmed Elazazy
-📌 LinkedIn: Ahmed Elazazy
+📌 GitHub: https://github.com/elazazy424
+📌 LinkedIn: https://www.linkedin.com/in/ahmed-elazazy11/
 
 🚀 Happy coding! 🎉
