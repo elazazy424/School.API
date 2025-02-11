@@ -11,17 +11,19 @@ namespace School.Core.Features.Students.Commands.Validators
         #region  fields
         private readonly IStudentService _studentService;
         private readonly IStringLocalizer<Resources> _stringLocalizer;
+        private readonly IDepartmentService _departmentService;
 
 
         #endregion
 
         #region constructors
-        public AddStudentValidator(IStudentService studentService, IStringLocalizer<Resources> stringLocalizer)
+        public AddStudentValidator(IStudentService studentService, IStringLocalizer<Resources> stringLocalizer, IDepartmentService departmentService)
         {
             _studentService = studentService;
             _stringLocalizer = stringLocalizer;
             ApplyValidationRules();
             ApplyCustomValidationRules();
+            _departmentService = departmentService;
         }
         #endregion
 
@@ -39,8 +41,11 @@ namespace School.Core.Features.Students.Commands.Validators
         public void ApplyCustomValidationRules()
         {
             RuleFor(x => x.NameAr).MustAsync(async (Key, CancellationToken) => !await _studentService.IsNameExist(Key))
-                .WithMessage("Name Is Exist");
+                .WithMessage(_stringLocalizer[SharedResourcesKeys.IsExist]);
 
+            RuleFor(x => x.DepartId)
+                .MustAsync(async (Key, CancellationToken) => await _departmentService.IsDepartmentIdExist(Key))
+                .WithMessage(_stringLocalizer[SharedResourcesKeys.DepartmentIdIsNotExist]);
         }
         #endregion
 

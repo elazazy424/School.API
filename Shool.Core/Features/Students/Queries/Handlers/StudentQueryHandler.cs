@@ -7,10 +7,8 @@ using School.Core.Features.Students.Queries.Results;
 using School.Core.Features.Students.Queries.ResultsDto;
 using School.Core.SharedResources;
 using School.Core.Wrappers;
-using School.Data.Entities;
 using School.Service.Interfaces;
 using Shool.Core.Features.Students.Queries.Models;
-using System.Linq.Expressions;
 
 namespace School.Core.Features.Students.Queries.Handlers
 {
@@ -58,10 +56,10 @@ namespace School.Core.Features.Students.Queries.Handlers
         public async Task<PaginatedResult<GetStudentPaginatedListResponse>> Handle(GetStudentPginatedListQuery request, CancellationToken cancellationToken)
         {
             //bdila ll mapping
-            Expression<Func<Student, GetStudentPaginatedListResponse>> expression = e => new GetStudentPaginatedListResponse(e.Id, e.Localize(e.NameAr, e.NameEn), e.Address, e.Department.Localize(e.NameAr, e.NameEn));
+            //Expression<Func<Student, GetStudentPaginatedListResponse>> expression = e => new GetStudentPaginatedListResponse(e.Id, e.Localize(e.NameAr, e.NameEn), e.Address, e.Department.Localize(e.NameAr, e.NameEn));
             // var querable = _studentService.GetStudentsQuerable();
             var filterQuery = _studentService.FilterStudentPaginatedQuerable(request.OrderBy, request.Search);
-            var paginatedList = await filterQuery.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            var paginatedList = await filterQuery.Select(x => new GetStudentPaginatedListResponse() { Name = x.Localize(x.NameAr, x.NameEn) }).ToPaginatedListAsync(request.PageNumber, request.PageSize);
             paginatedList.Meta = new { count = paginatedList.Data.Count() };
             return paginatedList;
         }

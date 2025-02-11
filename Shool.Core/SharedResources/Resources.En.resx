@@ -138,4 +138,10 @@
   <data name="NotEmpty" xml:space="preserve">
     <value>This Property Can not be Empty</value>
   </data>
+  <data name="IsExist" xml:space="preserve">
+    <value>Is Exist</value>
+  </data>
+  <data name="DepartmentIdIsNotExist" xml:space="preserve">
+    <value>DepartmentIdIsNotExist</value>
+  </data>
 </root>
