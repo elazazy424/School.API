@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Localization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using School.Core.MiddleWare;
 using School.Infastructure;
-using School.Infastructure.Data;
 using School.Service;
 using Shool.Core;
 using System.Globalization;
@@ -17,15 +15,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+
 
 #region depedency injections
 builder.Services.AddInfrastructureDependencies()
                 .AddServiceDependencies()
-                .AddCoreDependencies();
+                .AddCoreDependencies()
+                .AddServiceRegistration();
 #endregion
 #region Localization
 builder.Services.AddControllersWithViews();
