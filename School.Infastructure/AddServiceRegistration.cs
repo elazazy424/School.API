@@ -1,33 +1,39 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using School.Data.Entities.Identity;
 using School.Infastructure.Data;
 
 namespace School.Infastructure
 {
-    public static IServiceCollection AddServiceRegistration(this IServiceCollection services)
+    public static class ServiceRegistration
     {
-        services.AddIdentity<User, IdentityRole>(option =>
+        public static IServiceCollection AddServiceRegistration(this IServiceCollection services)
         {
-            //password settings
-            option.Password.RequireDigit = true;
-            option.Password.RequireLowercase = true;
-            option.Password.RequireUppercase = true;
-            option.Password.RequireNonAlphanumeric = true;
-            option.Password.RequiredLength = 6;
-            option.Password.RequiredUniqueChars = 6;
+            services.AddIdentity<User, IdentityRole<int>>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 6;
 
-            //lockout settings
-            option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            option.Lockout.MaxFailedAccessAttempts = 5;
-            option.Lockout.AllowedForNewUsers = true;
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
 
-            //user settings
-            option.User.RequireUniqueEmail = false;
-            option.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                // User settings
+                options.User.RequireUniqueEmail = false;
+                options.User.RequireConfirmedEmail = false;
 
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
-        }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-
-        return services;
+            return services;
+        }
     }
 }

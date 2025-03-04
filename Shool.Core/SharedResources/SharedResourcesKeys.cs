@@ -10,6 +10,7 @@
         public const string Success = "Success";
         public const string NotEmpty = "NotEmpty";
         public const string IsExist = "IsExist";
+        public const string EmailIsExist = "EmailIsExist";
         public const string DepartmentIdIsNotExist = "DepartmentIdIsNotExist";
     }
 }

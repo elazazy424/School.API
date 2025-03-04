@@ -138,4 +138,7 @@
   <data name="NotEmpty" xml:space="preserve">
     <value>لا يمكن ترك هذا الحقل فارغ</value>
   </data>
+  <data name="EmailIsExist" xml:space="preserve">
+    <value>EmailIsExist</value>
+  </data>
 </root>

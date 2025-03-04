@@ -22,5 +22,12 @@
             public const string Prefix = rule + "Department";
             public const string GetById = Prefix + "/Id";
         }
+        public static class ApplicationUserRouting
+        {
+            public const string Prefix = rule + "ApplicationUser";
+            public const string AddUser = Prefix + "/Create";
+            public const string Paginated = Prefix + "/Paginated";
+            public const string GetById = Prefix + singleRoute;
+        }
     }
 }
