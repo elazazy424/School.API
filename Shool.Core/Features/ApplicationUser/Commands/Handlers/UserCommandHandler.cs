@@ -11,7 +11,8 @@ using School.Data.Entities.Identity;
 namespace School.Core.Features.ApplicationUser.Commands.Handlers
 {
     public class UserCommandHandler : ResponseHandler,
-        IRequestHandler<AddUserCommand, Response<string>>
+        IRequestHandler<AddUserCommand, Response<string>>,
+        IRequestHandler<EditUserCommand, Response<string>>
     {
         #region Fields
 
@@ -55,6 +56,29 @@ namespace School.Core.Features.ApplicationUser.Commands.Handlers
                 return Created("Created Successfully");
             }
             //if user creation failed
+            return BadRequest<string>(result.Errors.FirstOrDefault().Description);
+
+
+
+        }
+
+        public async Task<Response<string>> Handle(EditUserCommand request, CancellationToken cancellationToken)
+        {
+            var Olduser = await _userManager.FindByIdAsync(request.Id.ToString());
+            if (Olduser == null)
+            {
+                return NotFound<string>(_stringLocalizer["UserNotFound"]);
+            }
+            //mapping
+            var newUser = _mapper.Map(request, Olduser);
+            //update user
+            var result = await _userManager.UpdateAsync(newUser);
+            //if user updated successfully
+            if (result.Succeeded)
+            {
+                return Success("Updated Successfully");
+            }
+            //if user update failed
             return BadRequest<string>(result.Errors.FirstOrDefault().Description);
 
 

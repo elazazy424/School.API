@@ -23,5 +23,10 @@ namespace School.API.Controllers
         {
             return Ok(await Mediator.Send(command));
         }
+        [HttpGet(Router.ApplicationUserRouting.Edit)]
+        public async Task<IActionResult> Edit([FromBody] EditUserCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
     }
 }
